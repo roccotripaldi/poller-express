@@ -17,3 +17,18 @@
 .poex_notice {
     clear: both !important;
 }
+
+.poex_poll {
+    padding: 20px;
+    border: 1px solid black;
+    margin: 20px 0;
+}
+
+.poex_title {
+    border-bottom:  1px solid #555;
+    margin-bottom: 20px !important;
+}
+
+.poex_question {
+    font-style: italic;
+}
