@@ -8,6 +8,7 @@ function poexSettingsInit() {
 
     jQuery(".poex_answers").on( "click", ".poex_answer_remove", function() {
         if( poexAnswers.length > 1 ) {
+            get_poex_answers();
             var key = jQuery(this).data("key");
             jQuery( "#poex_answer_" + key).detach();
             poexAnswers.splice(key, 1);
@@ -18,6 +19,7 @@ function poexSettingsInit() {
     });
 
     jQuery(".poex_settings_form").on("click", ".poex_answer_add", function() {
+        get_poex_answers();
         poexAnswers.push( "New answer" );
         jQuery('.poex_answers').append( answerHTML );
         set_poex_answers();
@@ -26,7 +28,15 @@ function poexSettingsInit() {
     set_poex_answers();
 }
 
+function get_poex_answers() {
+    poexAnswers = [];
+    jQuery('.answer_input').each( function() {
+        poexAnswers.push( jQuery(this).val() );
+    });
+}
+
 function set_poex_answers() {
+    console.log( poexAnswers );
     jQuery.each( jQuery(".poex_answer"), function( i, val ) {
         var id = "poex_answer_" + i;
         jQuery(this).attr( "id", id );
