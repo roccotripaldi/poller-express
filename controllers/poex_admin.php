@@ -129,6 +129,9 @@ class Poex_admin extends Poller_express {
             $settings = $this->get_settings();
         }
 
+        $radio_type_checked = ( $settings['input_type'] == 'radio' ) ? 'checked="checked"' : '';
+        $checkbox_type_checked = ( $settings['input_type'] == 'checkbox' ) ? 'checked="checked"' : '';
+
         $poex_settings_nonce = wp_create_nonce( 'poex_save_settings' );
         include POEX_DIR . 'views/settings.php';
     }

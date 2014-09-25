@@ -15,12 +15,12 @@
     </p>
     <p>
         <label for="poex[input_type]">Allow multiple votes:</label>
-        <input type="radio" name="poex[input_type]" value="radio" />
+        <input type="radio" name="poex[input_type]" value="radio" <?php echo $radio_type_checked; ?> />
         One vote only
     </p>
     <p>
         <label>&nbsp;</label>
-        <input type="radio" name="poex[input_type]" value="checkbox" />
+        <input type="radio" name="poex[input_type]" value="checkbox" <?php echo $checkbox_type_checked; ?> />
         Multiple votes
     </p>
     <p>
