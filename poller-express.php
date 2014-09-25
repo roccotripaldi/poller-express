@@ -18,10 +18,22 @@ define( 'POEX_DIR', dirname(__FILE__).'/' );
 define( 'POEX_PATH', plugins_url() . '/poller-express/' );
 
 /**
- * Our main controller: has a $settings which we can get with, viola!, the get_settings() method
+ * Our main controller: has $settings which we can get with, viola!, the get_settings() method
  */
 class Poller_express {
     public $settings;
+
+    function __construct() {
+        add_shortcode('poller_express', array( &$this, 'render_poll'));
+    }
+
+    function render_poll() {
+        ob_start();
+        include POEX_DIR . 'views/poll.php';
+        $poll = ob_get_contents();
+        ob_end_clean();
+        return $poll;
+    }
 
     /**
      * Grabs the settings from storage in the wp_options table, sets them, and returns them
