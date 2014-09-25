@@ -17,3 +17,7 @@ Step 1
 ------
 Nothing happens here. We have a basic code skeleton that could be committed to memory if you plan to build a lot of
 WordPress plugins.
+
+Step 2
+------
+We implement the functionality in the wp-admin. Adding a menu item, and a menu page, and giving the user the ability to save settings.
