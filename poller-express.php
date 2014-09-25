@@ -31,13 +31,34 @@ class Poller_express {
         add_shortcode('poller_express', array( &$this, 'render_poll'));
         add_action('init', array(&$this, 'register_poll_assets'));
         add_action('wp_footer', array(&$this, 'print_scripts'));
-        if( isset( $_POST['action'] ) && $_POST['action'] == '' ) {
+        if( isset( $_POST['action'] ) && $_POST['action'] == 'poex_vote' ) {
             add_action( 'init', array(&$this, 'vote') );
         }
     }
 
     function vote() {
 
+        $nonce = isset( $_POST['poex_vote_nonce'] ) ? $_POST['poex_vote_nonce'] : '';
+        if( ! wp_verify_nonce( $nonce, 'poex_vote' ) ) {
+            return false;
+        }
+        $this->is_voting = true;
+        $this->voting_error = true;
+        $votes = isset( $_POST['poex_vote'] ) ? $_POST['poex_vote'] : array();
+        if( empty($votes) || ! is_array( $votes ) ) {
+            $this->voting_message = 'You didn\'t cast a vote chief';
+            return false;
+        }
+        $this->voting_error = false;
+        foreach( $votes as $v ) {
+            $existing_votes = get_option( 'poex_votes', array() );
+            if( isset( $existing_votes[$v] ) ) {
+                $existing_votes[$v]++;
+            } else {
+                $existing_votes[$v] = 1;
+            }
+        }
+        update_option( 'poex_votes', $existing_votes );
     }
 
     function print_scripts() {

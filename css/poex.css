@@ -32,3 +32,8 @@
 .poex_question {
     font-style: italic;
 }
+
+.poex_voting_message {
+    padding: 5px;
+    background: yellow;
+}

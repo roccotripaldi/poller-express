@@ -1,5 +1,12 @@
 <div class="poex_poll">
     <h2 class="poex_title"><?php echo stripslashes( $settings['title'] ); ?></h2>
+
+    <?php if( !empty( $this->voting_message ) ) :?>
+    <p class="poex_voting_message">
+        <?php echo $this->voting_message; ?>
+    </p>
+    <?php endif; ?>
+
     <p class="poex_question">
         <?php echo $settings['question']; ?>
     </p>
