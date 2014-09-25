@@ -1,0 +1,19 @@
+.poex_settings_form p {
+    clear: both;
+    width: 100%;
+}
+
+.poex_settings_form p label {
+    width: 20%;
+    float: left;
+    margin-right: 1%;
+    text-align: right;
+}
+
+.poex_settings_form p input[type=text] {
+    width: 60%;
+}
+
+.poex_notice {
+    clear: both !important;
+}
