@@ -13,18 +13,22 @@
  * License: GPL2
  */
 
+// we will be doing a lot of includes, we should define our base path
+define( 'POEX_DIR', dirname(__FILE__).'/' );
+
 /**
- * Our main controller
+ * Our main controller - Empty for now
+ * In the step 3 we will fill it with properties and methods
  */
 class Poller_express {
 
 }
+$poex = new Poller_express(); // let's get it started in here
 
-// initialize our main controller
-$poex = new Poller_express();
-// if we are in the WordPress admin, initialize our admin controller
+
 if( is_admin() ) {
-    require_once dirname( __FILE__ ) . '/controllers/poex_settings.php';
+    // if we are in the dashboard, let's get that started too!
+    require POEX_DIR . '/controllers/poex_settings.php';
     $poex_settings = new Poex_settings();
 }
 
