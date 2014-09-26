@@ -22,7 +22,8 @@ define( 'POEX_PATH', plugins_url() . '/poller-express/' );
  */
 class Poller_express {
     public $settings;
-    public $showing_shortcode;
+    public $is_showing_shortcode;
+    public $is_showing_graph;
     public $is_voting;
     public $voting_error;
     public $voting_message;
@@ -63,11 +64,34 @@ class Poller_express {
     }
 
     function print_scripts() {
-        if( $this->showing_shortcode === true ) {
-            wp_print_scripts('charts-js');
-            wp_print_scripts('results-js');
+        if( $this->is_showing_shortcode === true ) {
             wp_enqueue_style( 'poex-css' );
         }
+
+        if( $this->is_showing_graph === true ) {
+            $votes = $this->get_votes();
+            wp_localize_script( 'results-js', 'poex_result_lables', $votes['labels'] );
+            wp_localize_script( 'results-js', 'poex_result_totals', $votes['totals'] );
+            wp_print_scripts('results-js');
+        }
+    }
+
+    function get_votes() {
+        $settings = $this->get_settings();
+        $votes = get_option( 'poex_votes', array() );
+        $labels = stripslashes_deep( $settings['answers'] );
+        foreach( $settings['answers'] as $a ) {
+            if( isset( $votes[$a] ) ) {
+                $totals[]  = $votes[$a];
+            } else {
+                $totals[] = 0;
+            }
+        }
+        $return = array(
+            'labels' => $labels,
+            'totals' => $totals,
+        );
+        return $return;
     }
 
     function register_poll_assets() {
@@ -78,10 +102,11 @@ class Poller_express {
     }
 
     function render_poll() {
-        $this->showing_shortcode = true;
+        $this->is_showing_shortcode = true;
         $settings = $this->get_settings();
         ob_start();
         if( $this->is_voting === true && empty($this->voting_error) ) {
+            $this->is_showing_graph = true;
             include POEX_DIR . 'views/results.php';
         } else {
             $nonce = wp_create_nonce( 'poex_vote' );
