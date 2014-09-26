@@ -15,7 +15,7 @@
         <input type="hidden" name="poex_vote_nonce" value="<?php echo $nonce; ?>" />
         <?php foreach( $settings['answers'] as $a ) : ?>
         <p>
-            <input type="<?php echo $settings['input_type']; ?>" name="poex_vote[]" value="<?php echo $a; ?>" />
+            <input type="<?php echo $settings['input_type']; ?>" name="poex_vote[]" value="<?php echo $this->clean_var($a); ?>" />
             <?php echo stripslashes( $a ); ?>
         </p>
         <?php endforeach; ?>

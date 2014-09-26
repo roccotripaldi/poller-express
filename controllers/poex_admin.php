@@ -191,27 +191,6 @@ class Poex_admin extends Poller_express {
         $poex_settings_nonce = wp_create_nonce( 'poex_save_settings' );
         include POEX_DIR . 'views/settings.php';
     }
-
-    /**
-     * Accepts a string or a single dimension array
-     * Removes slashes from all values, and prepares strings for insertion into an html attribute
-     *
-     * @param $var
-     * @return array|string
-     */
-    function clean_var( $var ) {
-        if( is_array($var) ) {
-            foreach( $var as $k=>$v ) {
-                $clean = stripslashes($v);
-                $var[ $k ] = $clean;
-            }
-            return $var;
-        } else {
-            $clean = esc_attr( $var );
-            $clean = stripslashes($var);
-            echo $clean;
-        }
-    }
 }
 
 ?>
